@@ -77,4 +77,9 @@ public class SetOfNaturalsTest {
         assertEquals(true, setB.contains(10));
         assertEquals(false, setB.contains(1));
     }
+
+    @Test
+    public void testIntersect() {
+        assertEquals(false, setB.intersects(setD));
+    }
 }

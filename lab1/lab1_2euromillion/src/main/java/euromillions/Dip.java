@@ -12,7 +12,11 @@ import java.util.Random;
  * @author ico0
  */
 public class Dip {
+    static final int MAX_NUMBERS = 5;
+    static final int MAX_STARS = 2;
 
+    static final int NUMBERS_RANGE = 49;
+    static final int STARS_RANGE = 11;
 
     private SetOfNaturals numbers;
     private SetOfNaturals starts;
@@ -46,15 +50,15 @@ public class Dip {
         Random generator = new Random();
 
         Dip randomDip = new Dip();
-        for (int i = 0; i < 5; ) {
-            int candidate = generator.nextInt(49) + 1;
+        for (int i = 0; i < MAX_NUMBERS; ) {
+            int candidate = generator.nextInt(NUMBERS_RANGE) + 1;
             if (!randomDip.getNumbersColl().contains(candidate)) {
                 randomDip.getNumbersColl().add(candidate);
                 i++;
             }
         }
-        for (int i = 0; i < 2; ) {
-            int candidate = generator.nextInt(11) + 1;
+        for (int i = 0; i < MAX_STARS; ) {
+            int candidate = generator.nextInt(STARS_RANGE) + 1;
             if (!randomDip.getStarsColl().contains(candidate)) {
                 randomDip.getStarsColl().add(candidate);
                 i++;

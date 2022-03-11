@@ -54,7 +54,7 @@ public class Dip {
             }
         }
         for (int i = 0; i < 2; ) {
-            int candidate = generator.nextInt(9) + 1;
+            int candidate = generator.nextInt(11) + 1;
             if (!randomDip.getStarsColl().contains(candidate)) {
                 randomDip.getStarsColl().add(candidate);
                 i++;

@@ -44,4 +44,9 @@ public class DipTest {
         String result = instance.format();
         assertEquals("N[ 10 20 30 40 50] S[  1  2]", result, "format as string: formatted string not as expected. ");
     }
+
+    @Test
+    public void testNewRange() {
+        assertEquals("N[ 12 13 32 42 21] S[  10  11]", new Dip(new int[]{12, 13, 32, 42, 21}, new int[]{10, 11}).format());
+    }
 }

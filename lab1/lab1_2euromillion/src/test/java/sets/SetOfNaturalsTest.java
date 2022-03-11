@@ -54,12 +54,27 @@ public class SetOfNaturalsTest {
         assertThrows(IllegalArgumentException.class, () -> setA.add(elems));
     }
 
+    // My tests
 
     @Test
-    public void testIntersectForNoIntersection() {
-        assertFalse(setA.intersects(setB), "no intersection but was reported as existing");
-
+    public void testAddDuplicateElement() {
+        assertThrows(IllegalArgumentException.class, () -> setB.add(10));
     }
 
+    @Test
+    public void testAddArrayWithDuplicate() {
+        assertThrows(IllegalArgumentException.class, () -> setB.add(new int[]{6, 7, 8, 9, 10}));
+        assertThrows(IllegalArgumentException.class, () -> setA.add(new int[]{1, 2, 1}));
+    }
 
+    @Test
+    public void testCreateArrayWithDuplicate() {
+        assertThrows(IllegalArgumentException.class, () -> SetOfNaturals.fromArray(new int[]{1, 2, 3, 1}));
+    }
+
+    @Test
+    public void testContains() {
+        assertEquals(true, setB.contains(10));
+        assertEquals(false, setB.contains(1));
+    }
 }

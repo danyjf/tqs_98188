@@ -1,3 +1,6 @@
+package geocoding;
+
+import connection.ISimpleHttpClient;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
@@ -7,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Formatter;
 import java.util.Locale;
@@ -26,7 +30,7 @@ class AddressResolverTest {
     AddressResolver addressResolver;
 
     @Test
-    void whenResolveAlboiGps_returnCaisAlboiAddress() throws URISyntaxException, ParseException {
+    void whenResolveAlboiGps_returnCaisAlboiAddress() throws URISyntaxException, ParseException, IOException {
         URIBuilder uriBuilder = new URIBuilder("http://open.mapquestapi.com/geocoding/v1/reverse");
         uriBuilder.addParameter("key", "iBOFiJjeiqs83AkCwqa7oQqzAdOF7ywG");
         uriBuilder.addParameter("location", new Formatter().format(Locale.US, "%.6f,%.6f", 40.640661, -8.656688).toString());
@@ -43,7 +47,7 @@ class AddressResolverTest {
     }
 
     @Test
-    void whenBadCoordinates_thenReturnNoValidAddress() throws URISyntaxException, ParseException {
+    void whenBadCoordinates_thenReturnNoValidAddress() throws URISyntaxException, ParseException, IOException {
         URIBuilder uriBuilder = new URIBuilder("http://open.mapquestapi.com/geocoding/v1/reverse");
         uriBuilder.addParameter("key", "iBOFiJjeiqs83AkCwqa7oQqzAdOF7ywG");
         uriBuilder.addParameter("location", new Formatter().format(Locale.US, "%.6f,%.6f", -300.0, -810.0).toString());

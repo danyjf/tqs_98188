@@ -1,3 +1,5 @@
+package geocoding;
+
 import java.util.Objects;
 
 public class Address {
@@ -17,7 +19,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
+        return "geocoding.Address{" +
                 "road='" + road + '\'' +
                 ", state='" + state + '\'' +
                 ", city='" + city + '\'' +

@@ -1,9 +1,13 @@
+package geocoding;
+
+import connection.ISimpleHttpClient;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Formatter;
 import java.util.Locale;
@@ -18,7 +22,7 @@ public class AddressResolver {
         this.simpleHttpClient = simpleHttpClient;
     }
 
-    public Optional<Address> findAddressForLocation(double latitude, double longitude) throws URISyntaxException, ParseException {
+    public Optional<Address> findAddressForLocation(double latitude, double longitude) throws URISyntaxException, ParseException, IOException {
         String apiKey = "iBOFiJjeiqs83AkCwqa7oQqzAdOF7ywG";
 
         URIBuilder uriBuilder = new URIBuilder("http://open.mapquestapi.com/geocoding/v1/reverse");

@@ -10,6 +10,7 @@ import pt.ua.tqs.carsservice.entities.Car;
 import pt.ua.tqs.carsservice.repositories.CarRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -27,9 +28,9 @@ class CarManagerServiceTest {
         Car car = new Car("BMW", "E36");
         car.setCarId(0L);
 
-        when(repository.findByCarId(0L)).thenReturn(car);
+        when(repository.findByCarId(0L)).thenReturn(Optional.of(car));
 
-        Car fromDb = service.getCarDetails(0L);
+        Car fromDb = service.getCarDetails(0L).get();
         assertThat(fromDb.getMaker()).isEqualTo("BMW");
 
         verify(repository, times(1)).findByCarId(Mockito.anyLong());
@@ -39,7 +40,7 @@ class CarManagerServiceTest {
     void whenInvalidId_thenCarShouldNotBeFound() {
         when(repository.findByCarId(-1L)).thenReturn(null);
 
-        Car fromDb = service.getCarDetails(-1L);
+        Car fromDb = service.getCarDetails(-1L).get();
         assertThat(fromDb).isNull();
 
         verify(repository, times(1)).findByCarId(Mockito.anyLong());

@@ -14,6 +14,7 @@ import pt.ua.tqs.carsservice.services.CarManagerService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -74,7 +75,7 @@ class CarControllerTest {
         Car car = new Car("BMW", "E36");
         car.setCarId(0L);
 
-        when(service.getCarDetails(car.getCarId())).thenReturn(car);
+        when(service.getCarDetails(car.getCarId())).thenReturn(Optional.of(car));
 
         mvc.perform(get("/cars/0").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

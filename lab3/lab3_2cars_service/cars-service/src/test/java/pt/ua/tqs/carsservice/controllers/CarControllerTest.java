@@ -74,7 +74,7 @@ class CarControllerTest {
         Car car = new Car("BMW", "E36");
         car.setCarId(0L);
 
-        when(service.getCarDetails(0L)).thenReturn(car);
+        when(service.getCarDetails(car.getCarId())).thenReturn(car);
 
         mvc.perform(get("/cars/0").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

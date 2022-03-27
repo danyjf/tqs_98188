@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ua.tqs.carsservice.entities.Car;
 import pt.ua.tqs.carsservice.repositories.CarRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +29,9 @@ class CarManagerServiceTest {
         Car car = new Car("BMW", "E36");
         car.setCarId(0L);
 
-        when(repository.findByCarId(0L)).thenReturn(Optional.of(car));
+        when(repository.findByCarId(0L)).thenReturn(car);
 
-        Car fromDb = service.getCarDetails(0L).get();
+        Car fromDb = service.getCarDetails(0L);
         assertThat(fromDb.getMaker()).isEqualTo("BMW");
 
         verify(repository, times(1)).findByCarId(Mockito.anyLong());
@@ -40,7 +41,7 @@ class CarManagerServiceTest {
     void whenInvalidId_thenCarShouldNotBeFound() {
         when(repository.findByCarId(-1L)).thenReturn(null);
 
-        Car fromDb = service.getCarDetails(-1L).get();
+        Car fromDb = service.getCarDetails(-1L);
         assertThat(fromDb).isNull();
 
         verify(repository, times(1)).findByCarId(Mockito.anyLong());
@@ -52,12 +53,13 @@ class CarManagerServiceTest {
         Car renault = new Car("Renault", "Megane");
         Car seat = new Car("Seat", "Ibiza");
         Car mercedes = new Car("Mercedes", "Benz");
-
-        List<Car> allCars = service.getAllCars();
+        List<Car> allCars = Arrays.asList(bmw, renault, seat, mercedes);
 
         when(repository.findAll()).thenReturn(allCars);
 
-        assertThat(allCars)
+        List<Car> response = service.getAllCars();
+
+        assertThat(response)
                 .hasSize(4)
                 .extracting(Car::getMaker)
                 .contains(bmw.getMaker(), renault.getMaker(), seat.getMaker(), mercedes.getMaker());

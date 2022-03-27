@@ -1,6 +1,5 @@
 package pt.ua.tqs.carsservice.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -75,11 +74,10 @@ class CarControllerTest {
         Car car = new Car("BMW", "E36");
         car.setCarId(0L);
 
-        when(service.getCarDetails(car.getCarId())).thenReturn(Optional.of(car));
+        when(service.getCarDetails(car.getCarId())).thenReturn(car);
 
         mvc.perform(get("/cars/0").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.carId", is(0L)))
                 .andExpect(jsonPath("$.maker", is("BMW")))
                 .andExpect(jsonPath("$.model", is("E36")));
     }

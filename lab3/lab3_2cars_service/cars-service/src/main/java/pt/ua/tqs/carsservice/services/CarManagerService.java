@@ -6,7 +6,6 @@ import pt.ua.tqs.carsservice.entities.Car;
 import pt.ua.tqs.carsservice.repositories.CarRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CarManagerService {
@@ -14,17 +13,14 @@ public class CarManagerService {
     private CarRepository carRepository;
 
     public Car save(Car car) {
-//        return carRepository.save(car);
-        return null;
+        return carRepository.save(car);
     }
 
     public List<Car> getAllCars() {
-//        return carRepository.findAll();
-        return null;
+        return carRepository.findAll();
     }
 
-    public Optional<Car> getCarDetails(Long carId) {
-//        return carRepository.findByCarId(carId).orElse(null);
-        return null;
+    public Car getCarDetails(Long carId) {
+        return carRepository.findByCarId(carId);
     }
 }

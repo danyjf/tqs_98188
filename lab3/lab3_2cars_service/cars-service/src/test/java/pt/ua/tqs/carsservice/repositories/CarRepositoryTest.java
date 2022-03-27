@@ -23,7 +23,7 @@ class CarRepositoryTest {
         Car car = new Car("BMW", "E36");
         entityManager.persistAndFlush(car);
 
-        Car fromDb = repository.findByCarId(car.getCarId()).orElse(null);
+        Car fromDb = repository.findByCarId(car.getCarId());
         assertThat(fromDb).isNotNull();
         assertThat(fromDb.getMaker()).isEqualTo(car.getMaker());
         assertThat(fromDb.getModel()).isEqualTo(car.getModel());
@@ -31,7 +31,7 @@ class CarRepositoryTest {
 
     @Test
     void whenFindByInvalidId_thenReturnNull() {
-        Car fromDb = repository.findByCarId(-1L).orElse(null);
+        Car fromDb = repository.findByCarId(-1L);
         assertThat(fromDb).isNull();
     }
 

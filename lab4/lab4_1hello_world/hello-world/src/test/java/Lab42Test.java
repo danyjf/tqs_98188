@@ -1,39 +1,20 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.BeforeEach;
+import io.github.bonigarcia.seljup.SeleniumJupiter;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
+@ExtendWith(SeleniumJupiter.class)
 public class Lab42Test {
-  private WebDriver driver;
-
-  @BeforeAll
-  static void setupClass() {
-    WebDriverManager.firefoxdriver().setup();
-  }
-
-  @BeforeEach
-  public void setUp() {
-    driver = new FirefoxDriver();
-  }
-
-  @AfterEach
-  public void tearDown() {
-    driver.quit();
-  }
-
   @Test
-  public void lab42() {
+  public void lab42(FirefoxDriver driver) {
     driver.get("https://blazedemo.com/");
     driver.manage().window().setSize(new Dimension(550, 691));
     driver.findElement(By.name("fromPort")).click();

@@ -1,4 +1,4 @@
-package pt.ua.tqs.book;
+package pt.ua.tqs.salary;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -10,8 +10,8 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("pt/ua/tqs/book")
+@SelectClasspathResource("pt/ua/tqs/salary")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "pt.ua.tqs.book")
-public class RunCucumberTest {
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "pt.ua.tqs.salary")
+public class SalaryTest {
 }

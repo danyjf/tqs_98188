@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.ua.tqs.carsservice.dto.CarDTO;
 import pt.ua.tqs.carsservice.entities.Car;
 import pt.ua.tqs.carsservice.services.CarManagerService;
 
@@ -15,7 +16,8 @@ public class CarController {
     CarManagerService carManagerService;
 
     @PostMapping("/cars")
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+    public ResponseEntity<Car> createCar(@RequestBody CarDTO carDTO) {
+        Car car = new Car(carDTO.getMaker(), carDTO.getModel());
         Car response = carManagerService.save(car);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

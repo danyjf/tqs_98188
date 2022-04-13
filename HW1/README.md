@@ -2,7 +2,7 @@
 
 ## Objectives
 
-Develop a web applicatino, in Spring Boot, with automated tests.
+Develop a web application, in Spring Boot, with automated tests.
 
 ## Required elements
 
@@ -51,3 +51,18 @@ The submission consists of a report and a code project, including:
 1. A technical report that explains the strategy that was adopted and offer evidence of the results obtained (e.g.: which tests per testing level, screenshots of the representative steps, code snippets of the key parts, screenshots with the test results, etc.). The results of the Sonar Qube dashboard should be included (and discussed).
 2. The code project, committed on my TQS git repository. Include in the repository a short video with a demostration of the solution.
 3. Oral presentation.
+
+
+# My implementation
+
+## Frontend
+
+
+
+## Backend
+
+Spring boot
+
+## API
+
+https://rapidapi.com/axisbits-axisbits-default/api/covid-19-statistics/

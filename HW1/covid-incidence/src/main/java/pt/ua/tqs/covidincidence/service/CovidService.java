@@ -2,17 +2,16 @@ package pt.ua.tqs.covidincidence.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.Map;
+import pt.ua.tqs.covidincidence.model.CovidStats;
+import reactor.core.publisher.Mono;
 
 @Service
 public class CovidService {
     @Autowired
     private WebClient webClient;
 
-    public Map<String, String> getCovidCasesByCountryAndDate(String country, String date) {
+    public CovidStats getCovidStatsByCountryAndDate(String country, String date) {
         return null;
     }
 }

@@ -65,4 +65,5 @@ Spring boot
 
 ## API
 
+https://rapidapi.com/api-sports/api/covid-193/
 https://rapidapi.com/axisbits-axisbits-default/api/covid-19-statistics/

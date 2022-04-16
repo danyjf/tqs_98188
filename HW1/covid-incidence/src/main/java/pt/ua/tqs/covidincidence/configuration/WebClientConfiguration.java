@@ -9,8 +9,8 @@ public class WebClientConfiguration {
     @Bean
     public WebClient webClient(WebClient.Builder webClientBuilder) {
         return webClientBuilder
-                .defaultHeader("X-RapidAPI-Host: covid-19-statistics.p.rapidapi.com")
-                .defaultHeader("X-RapidAPI-Key: feed5f3f36mshc194d7043f6be9cp115694jsn68552002fd76")
+                .defaultHeader("X-RapidAPI-Host", "covid-193.p.rapidapi.com")
+                .defaultHeader("X-RapidAPI-Key", "feed5f3f36mshc194d7043f6be9cp115694jsn68552002fd76")
                 .build();
     }
 }

@@ -15,6 +15,7 @@ public class CovidController {
 
     @GetMapping("covid/{country}/{date}")
     private CovidStats getCovidStatsByCountryAndDate(@PathVariable(value = "country") String country, @PathVariable(value = "date") String date) throws JsonProcessingException {
+        covidService.getCovidStatsByCountryAndDate(country, date);
         return null;
     }
 }

@@ -62,7 +62,7 @@ public class CovidServiceTest {
         CovidStats expectedStats = new CovidStats(
                 "Portugal",
                 "2021-06-09",
-                598,
+                "+598",
                 23631,
                 66,
                 812964,

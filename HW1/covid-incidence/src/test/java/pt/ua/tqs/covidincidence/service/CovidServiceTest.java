@@ -9,7 +9,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.reactive.function.client.WebClient;
-import pt.ua.tqs.covidincidence.model.CovidStats;
+import pt.ua.tqs.covidincidence.cache.CachedData;
+import pt.ua.tqs.covidincidence.model.CovidHistoryData;
 import reactor.core.publisher.Mono;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,6 +27,9 @@ public class CovidServiceTest {
     @Mock(lenient = true)
     private WebClient.ResponseSpec responseSpecMock;
 
+    @Mock
+    private CachedData cachedData;
+
     @InjectMocks
     private CovidService covidService;
 
@@ -33,7 +37,7 @@ public class CovidServiceTest {
     }
 
     @Test
-    public void whenGetCovidStatsForPortugalOnDate_thenCorrectCovidStatsShouldBeReturned() {
+    public void whenGetCovidHistoryForPortugalOnDate_thenCorrectCovidHistoryDataShouldBeReturned() {
         Mockito.when(webClientMock.get()).thenReturn(uriSpecMock);
         Mockito.when(uriSpecMock.uri(ArgumentMatchers.<String>notNull())).thenReturn(headersSpecMock);
         Mockito.when(headersSpecMock.retrieve()).thenReturn(responseSpecMock);
@@ -41,9 +45,9 @@ public class CovidServiceTest {
                 "{\"get\":\"history\",\"parameters\":{\"country\":\"Portugal\",\"day\":\"2021-06-09\"},\"errors\":[],\"results\":3,\"response\":[{\"continent\":\"Europe\",\"country\":\"Portugal\",\"population\":10168845,\"cases\":{\"new\":\"+890\",\"active\":23996,\"critical\":70,\"recovered\":813489,\"1M_pop\":\"84033\",\"total\":854522},\"deaths\":{\"new\":null,\"1M_pop\":\"1675\",\"total\":17037},\"tests\":{\"1M_pop\":\"1188905\",\"total\":12089787},\"day\":\"2021-06-09\",\"time\":\"2021-06-09T22:00:02+00:00\"},{\"continent\":\"Europe\",\"country\":\"Portugal\",\"population\":10168845,\"cases\":{\"new\":\"+598\",\"active\":23631,\"critical\":66,\"recovered\":812964,\"1M_pop\":\"83946\",\"total\":853632},\"deaths\":{\"new\":\"+1\",\"1M_pop\":\"1675\",\"total\":17037},\"tests\":{\"1M_pop\":\"1188905\",\"total\":12089787},\"day\":\"2021-06-09\",\"time\":\"2021-06-09T15:15:03+00:00\"},{\"continent\":\"Europe\",\"country\":\"Portugal\",\"population\":10168925,\"cases\":{\"new\":\"+598\",\"active\":23631,\"critical\":66,\"recovered\":812964,\"1M_pop\":\"83945\",\"total\":853632},\"deaths\":{\"new\":\"+1\",\"1M_pop\":\"1675\",\"total\":17037},\"tests\":{\"1M_pop\":\"1188895\",\"total\":12089787},\"day\":\"2021-06-09\",\"time\":\"2021-06-09T00:00:02+00:00\"}]}"
         ));
 
-        CovidStats covidStats = covidService.getCovidStatsByCountryAndDate("Portugal", "2021-06-09");
+        CovidHistoryData covidHistoryData = covidService.getCovidHistoryDataByCountryAndDate("Portugal", "2021-06-09");
 
-        CovidStats expectedStats = new CovidStats(
+        CovidHistoryData expectedStats = new CovidHistoryData(
                 "Portugal",
                 "2021-06-09",
                 "+598",
@@ -59,12 +63,12 @@ public class CovidServiceTest {
                 12089787
         );
 
-        assertThat(covidStats).isNotNull();
-        assertThat(covidStats.equals(expectedStats)).isEqualTo(true);
+        assertThat(covidHistoryData).isNotNull();
+        assertThat(covidHistoryData.equals(expectedStats)).isEqualTo(true);
     }
 
     @Test
-    public void whenGetCovidStatsForNonExistingCountry_thenCovidStatsShouldBeNull() {
+    public void whenGetCovidHistoryForNonExistingCountry_thenCovidHistoryDataShouldBeNull() {
         Mockito.when(webClientMock.get()).thenReturn(uriSpecMock);
         Mockito.when(uriSpecMock.uri(ArgumentMatchers.<String>notNull())).thenReturn(headersSpecMock);
         Mockito.when(headersSpecMock.retrieve()).thenReturn(responseSpecMock);
@@ -72,13 +76,13 @@ public class CovidServiceTest {
                 "{\"get\":\"history\",\"parameters\":{\"country\":\"Wrong Country\",\"day\":\"2021-06-09\"},\"errors\":[],\"results\":0,\"response\":[]}"
         ));
 
-        CovidStats covidStats = covidService.getCovidStatsByCountryAndDate("Wrong Country", "2021-06-09");
+        CovidHistoryData covidHistoryData = covidService.getCovidHistoryDataByCountryAndDate("Wrong Country", "2021-06-09");
 
-        assertThat(covidStats).isNull();
+        assertThat(covidHistoryData).isNull();
     }
 
     @Test
-    public void whenGetCovidStatsForDateWithNoData_thenCovidStatsShouldBeNull() {
+    public void whenGetCovidHistoryForDateWithNoData_thenCovidHistoryDataShouldBeNull() {
         Mockito.when(webClientMock.get()).thenReturn(uriSpecMock);
         Mockito.when(uriSpecMock.uri(ArgumentMatchers.<String>notNull())).thenReturn(headersSpecMock);
         Mockito.when(headersSpecMock.retrieve()).thenReturn(responseSpecMock);
@@ -86,8 +90,8 @@ public class CovidServiceTest {
                 "{\"get\":\"history\",\"parameters\":{\"country\":\"Portugal\",\"day\":\"2010-01-01\"},\"errors\":[],\"results\":0,\"response\":[]}"
         ));
 
-        CovidStats covidStats = covidService.getCovidStatsByCountryAndDate("Portugal", "2010-01-01");
+        CovidHistoryData covidHistoryData = covidService.getCovidHistoryDataByCountryAndDate("Portugal", "2010-01-01");
 
-        assertThat(covidStats).isNull();
+        assertThat(covidHistoryData).isNull();
     }
 }

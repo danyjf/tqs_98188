@@ -7,20 +7,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import pt.ua.tqs.covidincidence.model.CovidStats;
+import pt.ua.tqs.covidincidence.cache.CachedData;
+import pt.ua.tqs.covidincidence.model.CovidHistoryData;
 
 @Service
 public class CovidService {
     @Autowired
     private WebClient webClient;
 
-    public CovidStats getCovidStatsByCountryAndDate(String country, String date) {
+    @Autowired
+    private CachedData cachedData;
+
+    public CovidHistoryData getCovidHistoryDataByCountryAndDate(String country, String date) {
         Logger logger = LoggerFactory.getLogger(CovidService.class);
-        CovidStats covidStats = null;
+
+        String requestUrl = String.format("https://covid-193.p.rapidapi.com/history?country=%s&day=%s", country, date);
+        CovidHistoryData covidHistoryData = cachedData.getFromCache(requestUrl);
+        if(covidHistoryData != null)
+            return covidHistoryData;
 
         String response = webClient
                 .get()
-                .uri(String.format("https://covid-193.p.rapidapi.com/history?country=%s&day=%s", country, date))
+                .uri(requestUrl)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -34,25 +42,30 @@ public class CovidService {
             }
 
             JSONObject jsonCovidStats = jsonResponse.getJSONArray("response").getJSONObject(nResults - 1);
-            covidStats = new CovidStats(
+            JSONObject jsonCovidCasesStats = jsonCovidStats.getJSONObject("cases");
+            JSONObject jsonCovidDeathsStats = jsonCovidStats.getJSONObject("deaths");
+            JSONObject jsonCovidTestsStats = jsonCovidStats.getJSONObject("tests");
+            covidHistoryData = new CovidHistoryData(
                     jsonCovidStats.getString("country"),
                     jsonCovidStats.getString("day"),
-                    jsonCovidStats.getJSONObject("cases").getString("new"),
-                    jsonCovidStats.getJSONObject("cases").getInt("active"),
-                    jsonCovidStats.getJSONObject("cases").getInt("critical"),
-                    jsonCovidStats.getJSONObject("cases").getInt("recovered"),
-                    jsonCovidStats.getJSONObject("cases").getInt("1M_pop"),
-                    jsonCovidStats.getJSONObject("cases").getInt("total"),
-                    jsonCovidStats.getJSONObject("deaths").getInt("new"),
-                    jsonCovidStats.getJSONObject("deaths").getInt("1M_pop"),
-                    jsonCovidStats.getJSONObject("deaths").getInt("total"),
-                    jsonCovidStats.getJSONObject("tests").getInt("1M_pop"),
-                    jsonCovidStats.getJSONObject("tests").getInt("total")
+                    jsonCovidCasesStats.getString("new"),
+                    jsonCovidCasesStats.getInt("active"),
+                    jsonCovidCasesStats.getInt("critical"),
+                    jsonCovidCasesStats.getInt("recovered"),
+                    jsonCovidCasesStats.getInt("1M_pop"),
+                    jsonCovidCasesStats.getInt("total"),
+                    jsonCovidDeathsStats.getInt("new"),
+                    jsonCovidDeathsStats.getInt("1M_pop"),
+                    jsonCovidDeathsStats.getInt("total"),
+                    jsonCovidTestsStats.getInt("1M_pop"),
+                    jsonCovidTestsStats.getInt("total")
             );
         } catch (JSONException err) {
             logger.error(err.toString());
         }
 
-        return covidStats;
+//        cachedData.addToCache(requestUrl, covidHistoryData, 60);
+
+        return covidHistoryData;
     }
 }

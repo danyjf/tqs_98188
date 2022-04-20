@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import pt.ua.tqs.covidincidence.model.CovidStats;
+import pt.ua.tqs.covidincidence.model.CovidHistoryData;
 import pt.ua.tqs.covidincidence.service.CovidService;
 
 @RestController
@@ -14,8 +14,7 @@ public class CovidController {
     private CovidService covidService;
 
     @GetMapping("covid/{country}/{date}")
-    private CovidStats getCovidStatsByCountryAndDate(@PathVariable(value = "country") String country, @PathVariable(value = "date") String date) throws JsonProcessingException {
-        covidService.getCovidStatsByCountryAndDate(country, date);
-        return null;
+    private CovidHistoryData getCovidStatsByCountryAndDate(@PathVariable(value = "country") String country, @PathVariable(value = "date") String date) throws JsonProcessingException {
+        return covidService.getCovidHistoryDataByCountryAndDate(country, date);
     }
 }

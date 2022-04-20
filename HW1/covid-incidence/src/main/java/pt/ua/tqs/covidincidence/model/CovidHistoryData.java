@@ -2,7 +2,7 @@ package pt.ua.tqs.covidincidence.model;
 
 import java.util.Objects;
 
-public class CovidStats {
+public class CovidHistoryData {
     private String country;
     private String day;
     private String newCases;
@@ -17,7 +17,7 @@ public class CovidStats {
     private int testsPerOneMil;
     private int totalTests;
 
-    public CovidStats(String country, String day, String newCases, int activeCases, int criticalCases, int recovered, int casesPerOneMil, int totalCases, int newDeaths, int deathsPerOneMil, int totalDeaths, int testsPerOneMil, int totalTests) {
+    public CovidHistoryData(String country, String day, String newCases, int activeCases, int criticalCases, int recovered, int casesPerOneMil, int totalCases, int newDeaths, int deathsPerOneMil, int totalDeaths, int testsPerOneMil, int totalTests) {
         this.country = country;
         this.day = day;
         this.newCases = newCases;
@@ -160,7 +160,7 @@ public class CovidStats {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CovidStats that = (CovidStats) o;
+        CovidHistoryData that = (CovidHistoryData) o;
         return activeCases == that.activeCases && criticalCases == that.criticalCases && recovered == that.recovered && casesPerOneMil == that.casesPerOneMil && totalCases == that.totalCases && newDeaths == that.newDeaths && deathsPerOneMil == that.deathsPerOneMil && totalDeaths == that.totalDeaths && testsPerOneMil == that.testsPerOneMil && totalTests == that.totalTests && Objects.equals(country, that.country) && Objects.equals(day, that.day) && Objects.equals(newCases, that.newCases);
     }
 

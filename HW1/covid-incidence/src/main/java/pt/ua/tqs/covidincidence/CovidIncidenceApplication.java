@@ -9,5 +9,4 @@ public class CovidIncidenceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CovidIncidenceApplication.class, args);
 	}
-
 }

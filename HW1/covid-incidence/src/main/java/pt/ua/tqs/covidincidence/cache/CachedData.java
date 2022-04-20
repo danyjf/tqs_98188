@@ -21,10 +21,12 @@ public class CachedData {
     }
 
     public CovidHistoryData getFromCache(String url) {
+        requestCount++;
         return cachedData.get(url);
     }
 
     public void addToCache(String url, CovidHistoryData covidHistoryData, long ttl) {
+        requestCount++;
         cachedData.put(url, covidHistoryData);
         TimerTask task = new TimerTask() {
             @Override
@@ -39,7 +41,12 @@ public class CachedData {
         cachedData.remove(url);
     }
 
-    public Map<String, CovidHistoryData> getCachedData() {
+    public Map<String, CovidHistoryData> getAllCachedData() {
+        requestCount++;
         return cachedData;
+    }
+
+    public int getRequestCount() {
+        return requestCount;
     }
 }

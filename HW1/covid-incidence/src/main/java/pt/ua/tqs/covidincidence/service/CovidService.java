@@ -64,7 +64,7 @@ public class CovidService {
             logger.error(err.toString());
         }
 
-//        cachedData.addToCache(requestUrl, covidHistoryData, 60);
+        cachedData.addToCache(requestUrl, covidHistoryData, 60);
 
         return covidHistoryData;
     }

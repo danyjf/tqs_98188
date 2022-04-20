@@ -12,6 +12,8 @@ import java.util.TimerTask;
 public class CachedData {
     private Map<String, CovidHistoryData> cachedData;
     private int requestCount;
+    private int hit;
+    private int miss;
     private Timer timer;
 
     public CachedData() {
@@ -22,7 +24,13 @@ public class CachedData {
 
     public CovidHistoryData getFromCache(String url) {
         requestCount++;
-        return cachedData.get(url);
+        CovidHistoryData data = cachedData.get(url);
+        if(data == null) {
+            miss++;
+        } else {
+            hit++;
+        }
+        return data;
     }
 
     public void addToCache(String url, CovidHistoryData covidHistoryData, long ttl) {

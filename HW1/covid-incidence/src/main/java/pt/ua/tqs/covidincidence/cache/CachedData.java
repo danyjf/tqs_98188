@@ -57,4 +57,12 @@ public class CachedData {
     public int getRequestCount() {
         return requestCount;
     }
+
+    public int getHit() {
+        return hit;
+    }
+
+    public int getMiss() {
+        return miss;
+    }
 }

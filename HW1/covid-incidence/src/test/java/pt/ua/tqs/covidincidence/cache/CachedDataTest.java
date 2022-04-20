@@ -166,4 +166,41 @@ class CachedDataTest {
 
         assertThat(cachedData.getRequestCount()).isEqualTo(3);
     }
+
+    @Test
+    public void whenGetCachedData3Times_thenThereShouldBe3Hits0Misses() {
+        CovidHistoryData portugalCovidData = new CovidHistoryData(
+                "Portugal",
+                "2021-06-09",
+                "+598",
+                23631,
+                66,
+                812964,
+                83945,
+                853632,
+                1,
+                1675,
+                17037,
+                1188895,
+                12089787
+        );
+        cachedData.addToCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09", portugalCovidData, 60);
+
+        cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
+        cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
+        cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
+
+        assertThat(cachedData.getHit()).isEqualTo(3);
+        assertThat(cachedData.getMiss()).isEqualTo(0);
+    }
+
+    @Test
+    public void whenGetNonCachedData3Times_thenThereShouldBe3Misses0Hits() {
+        cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
+        cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
+        cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
+
+        assertThat(cachedData.getMiss()).isEqualTo(3);
+        assertThat(cachedData.getHit()).isEqualTo(0);
+    }
 }

@@ -21,11 +21,17 @@ public class CovidService {
     public CovidHistoryData getCovidHistoryDataByCountryAndDate(String country, String date) {
         Logger logger = LoggerFactory.getLogger(CovidService.class);
 
+        logger.info(String.format("Getting covid history data for %s on %s", country, date));
         String requestUrl = String.format("https://covid-193.p.rapidapi.com/history?country=%s&day=%s", country, date);
-        CovidHistoryData covidHistoryData = cachedData.getFromCache(requestUrl);
-        if(covidHistoryData != null)
-            return covidHistoryData;
 
+        CovidHistoryData covidHistoryData = cachedData.getFromCache(requestUrl);
+        if(covidHistoryData != null) {
+            logger.info("Found data in cache");
+            return covidHistoryData;
+        }
+        logger.info("Data not in cache");
+
+        logger.info("Requesting data from external API");
         String response = webClient
                 .get()
                 .uri(requestUrl)
@@ -38,6 +44,7 @@ public class CovidService {
             int nResults = jsonResponse.getInt("results");
 
             if(nResults == 0) {
+                logger.info("Requested data not in external API");
                 return null;
             }
 
@@ -64,6 +71,7 @@ public class CovidService {
             logger.error(err.toString());
         }
 
+        logger.info("Adding data to cache");
         cachedData.addToCache(requestUrl, covidHistoryData, 60);
 
         return covidHistoryData;

@@ -53,19 +53,19 @@ public class CovidService {
             JSONObject jsonCovidDeathsStats = jsonCovidStats.getJSONObject("deaths");
             JSONObject jsonCovidTestsStats = jsonCovidStats.getJSONObject("tests");
             covidHistoryData = new CovidHistoryData(
-                    jsonCovidStats.optString("country"),
-                    jsonCovidStats.optString("day"),
-                    jsonCovidCasesStats.optString("new"),
-                    jsonCovidCasesStats.optInt("active"),
-                    jsonCovidCasesStats.optInt("critical"),
-                    jsonCovidCasesStats.optInt("recovered"),
-                    jsonCovidCasesStats.optInt("1M_pop"),
-                    jsonCovidCasesStats.optInt("total"),
-                    jsonCovidDeathsStats.optString("new"),
-                    jsonCovidDeathsStats.optInt("1M_pop"),
-                    jsonCovidDeathsStats.optInt("total"),
-                    jsonCovidTestsStats.optInt("1M_pop"),
-                    jsonCovidTestsStats.optInt("total")
+                    jsonCovidStats.optString("country", "N/A"),
+                    jsonCovidStats.optString("day", "N/A"),
+                    jsonCovidCasesStats.optString("new", "N/A"),
+                    jsonCovidCasesStats.optInt("active", -1),
+                    jsonCovidCasesStats.optInt("critical", -1),
+                    jsonCovidCasesStats.optInt("recovered", -1),
+                    jsonCovidCasesStats.optInt("1M_pop", -1),
+                    jsonCovidCasesStats.optInt("total", -1),
+                    jsonCovidDeathsStats.optString("new", "N/A"),
+                    jsonCovidDeathsStats.optInt("1M_pop", -1),
+                    jsonCovidDeathsStats.optInt("total", -1),
+                    jsonCovidTestsStats.optInt("1M_pop", -1),
+                    jsonCovidTestsStats.optInt("total", -1)
             );
         } catch (JSONException err) {
             logger.error(err.toString());

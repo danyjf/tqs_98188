@@ -17,6 +17,22 @@ public class CovidHistoryData {
     private int testsPerOneMil;
     private int totalTests;
 
+    public CovidHistoryData(String country, String day) {
+        this.country = country;
+        this.day = day;
+        this.newCases = "N/A";
+        this.activeCases = -1;
+        this.criticalCases = -1;
+        this.recovered = -1;
+        this.casesPerOneMil = -1;
+        this.totalCases = -1;
+        this.newDeaths = "N/A";
+        this.deathsPerOneMil = -1;
+        this.totalDeaths = -1;
+        this.testsPerOneMil = -1;
+        this.totalTests = -1;
+    }
+
     public CovidHistoryData(String country, String day, String newCases, int activeCases, int criticalCases, int recovered, int casesPerOneMil, int totalCases, String newDeaths, int deathsPerOneMil, int totalDeaths, int testsPerOneMil, int totalTests) {
         this.country = country;
         this.day = day;

@@ -45,7 +45,12 @@ public class CovidService {
 
             if(nResults == 0) {
                 logger.info("Requested data not in external API");
-                return null;
+                logger.info("Adding to cache");
+
+                CovidHistoryData dataNotFound = new CovidHistoryData(country, date);
+                cachedData.addToCache(requestUrl, dataNotFound, 60);
+
+                return dataNotFound;
             }
 
             JSONObject jsonCovidStats = jsonResponse.getJSONArray("response").getJSONObject(nResults - 1);

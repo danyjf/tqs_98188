@@ -34,7 +34,6 @@ public class CachedData {
     }
 
     public void addToCache(String url, CovidHistoryData covidHistoryData, long ttl) {
-        requestCount++;
         cachedData.put(url, covidHistoryData);
         TimerTask task = new TimerTask() {
             @Override

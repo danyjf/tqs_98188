@@ -11,13 +11,13 @@ public class CovidHistoryData {
     private int recovered;
     private int casesPerOneMil;
     private int totalCases;
-    private int newDeaths;
+    private String newDeaths;
     private int deathsPerOneMil;
     private int totalDeaths;
     private int testsPerOneMil;
     private int totalTests;
 
-    public CovidHistoryData(String country, String day, String newCases, int activeCases, int criticalCases, int recovered, int casesPerOneMil, int totalCases, int newDeaths, int deathsPerOneMil, int totalDeaths, int testsPerOneMil, int totalTests) {
+    public CovidHistoryData(String country, String day, String newCases, int activeCases, int criticalCases, int recovered, int casesPerOneMil, int totalCases, String newDeaths, int deathsPerOneMil, int totalDeaths, int testsPerOneMil, int totalTests) {
         this.country = country;
         this.day = day;
         this.newCases = newCases;
@@ -97,11 +97,11 @@ public class CovidHistoryData {
         this.totalCases = totalCases;
     }
 
-    public int getNewDeaths() {
+    public String getNewDeaths() {
         return newDeaths;
     }
 
-    public void setNewDeaths(int newDeaths) {
+    public void setNewDeaths(String newDeaths) {
         this.newDeaths = newDeaths;
     }
 
@@ -161,7 +161,7 @@ public class CovidHistoryData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CovidHistoryData that = (CovidHistoryData) o;
-        return activeCases == that.activeCases && criticalCases == that.criticalCases && recovered == that.recovered && casesPerOneMil == that.casesPerOneMil && totalCases == that.totalCases && newDeaths == that.newDeaths && deathsPerOneMil == that.deathsPerOneMil && totalDeaths == that.totalDeaths && testsPerOneMil == that.testsPerOneMil && totalTests == that.totalTests && Objects.equals(country, that.country) && Objects.equals(day, that.day) && Objects.equals(newCases, that.newCases);
+        return activeCases == that.activeCases && criticalCases == that.criticalCases && recovered == that.recovered && casesPerOneMil == that.casesPerOneMil && totalCases == that.totalCases && deathsPerOneMil == that.deathsPerOneMil && totalDeaths == that.totalDeaths && testsPerOneMil == that.testsPerOneMil && totalTests == that.totalTests && Objects.equals(country, that.country) && Objects.equals(day, that.day) && Objects.equals(newCases, that.newCases) && Objects.equals(newDeaths, that.newDeaths);
     }
 
     @Override

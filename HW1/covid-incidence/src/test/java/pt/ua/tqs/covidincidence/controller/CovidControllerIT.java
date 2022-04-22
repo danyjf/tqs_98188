@@ -37,7 +37,7 @@ public class CovidControllerIT {
                 812964,
                 83945,
                 853632,
-                1,
+                "+1",
                 1675,
                 17037,
                 1188895,

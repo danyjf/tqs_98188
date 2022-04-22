@@ -68,7 +68,7 @@ public class CovidServiceTest {
     }
 
     @Test
-    public void whenGetCovidHistoryForNonExistingCountry_thenCovidHistoryDataShouldBeNull() {
+    public void whenGetCovidHistoryForNonExistingCountry_thenCovidHistoryDataShouldBeEmpty() {
         Mockito.when(webClientMock.get()).thenReturn(uriSpecMock);
         Mockito.when(uriSpecMock.uri(ArgumentMatchers.<String>notNull())).thenReturn(headersSpecMock);
         Mockito.when(headersSpecMock.retrieve()).thenReturn(responseSpecMock);
@@ -78,11 +78,13 @@ public class CovidServiceTest {
 
         CovidHistoryData covidHistoryData = covidService.getCovidHistoryDataByCountryAndDate("Wrong Country", "2021-06-09");
 
-        assertThat(covidHistoryData).isNull();
+        CovidHistoryData expected = new CovidHistoryData("Wrong Country", "2021-06-09");
+
+        assertThat(covidHistoryData).isEqualTo(expected);
     }
 
     @Test
-    public void whenGetCovidHistoryForDateWithNoData_thenCovidHistoryDataShouldBeNull() {
+    public void whenGetCovidHistoryForDateWithNoData_thenCovidHistoryDataShouldBeEmpty() {
         Mockito.when(webClientMock.get()).thenReturn(uriSpecMock);
         Mockito.when(uriSpecMock.uri(ArgumentMatchers.<String>notNull())).thenReturn(headersSpecMock);
         Mockito.when(headersSpecMock.retrieve()).thenReturn(responseSpecMock);
@@ -92,6 +94,8 @@ public class CovidServiceTest {
 
         CovidHistoryData covidHistoryData = covidService.getCovidHistoryDataByCountryAndDate("Portugal", "2010-01-01");
 
-        assertThat(covidHistoryData).isNull();
+        CovidHistoryData expected = new CovidHistoryData("Portugal", "2010-01-01");
+
+        assertThat(covidHistoryData).isEqualTo(expected);
     }
 }

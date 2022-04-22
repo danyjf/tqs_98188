@@ -17,6 +17,8 @@ public class CovidHistoryData {
     private int testsPerOneMil;
     private int totalTests;
 
+    public CovidHistoryData() {}
+
     public CovidHistoryData(String country, String day) {
         this.country = country;
         this.day = day;

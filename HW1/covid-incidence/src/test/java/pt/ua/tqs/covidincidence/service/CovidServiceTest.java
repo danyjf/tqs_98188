@@ -112,15 +112,15 @@ public class CovidServiceTest {
         CovidWorldData covidWorldData = covidService.getCovidWorldData();
 
         CovidWorldData expected = new CovidWorldData(
-                508733468,
-                223727,
-                41318583,
-                461173881,
-                282822,
+                508746132,
+                236391,
+                41326673,
+                461178426,
+                287367,
                 90.65,
-                65266,
-                6241004,
-                813,
+                65267.0,
+                6241033,
+                842,
                 800.7
         );
 

@@ -10,7 +10,7 @@ import java.util.TimerTask;
 
 @Component
 public class CachedData {
-    private Map<String, CovidHistoryData> cachedData;
+    private Map<String, Object> cachedData;
     private int requestCount;
     private int hit;
     private int miss;
@@ -33,8 +33,8 @@ public class CachedData {
         return data;
     }
 
-    public void addToCache(String url, CovidHistoryData covidHistoryData, long ttl) {
-        cachedData.put(url, covidHistoryData);
+    public void addToCache(String url, Object covidData, long ttl) {
+        cachedData.put(url, covidData);
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -48,7 +48,7 @@ public class CachedData {
         cachedData.remove(url);
     }
 
-    public Map<String, CovidHistoryData> getAllCachedData() {
+    public Map<String, Object> getAllCachedData() {
         requestCount++;
         return cachedData;
     }

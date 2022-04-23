@@ -2,6 +2,7 @@ package pt.ua.tqs.covidincidence.service;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,37 @@ public class CovidService {
         }
         logger.info("Data not in cache");
 
-        return null;
+        logger.info("Requesting data from external API");
+        String response = webClient
+                .get()
+                .uri(requestUrl)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        try {
+            JSONArray jsonResponse = new JSONArray(response);
+            JSONObject jsonData = jsonResponse.getJSONObject(0);
+
+            covidWorldData = new CovidWorldData(
+                    jsonData.optInt("TotalCases", -1),
+                    jsonData.optInt("NewCases", -1),
+                    jsonData.optInt("ActiveCases", -1),
+                    jsonData.optInt("TotalRecovered", -1),
+                    jsonData.optInt("NewRecovered", -1),
+                    jsonData.optDouble("Recovery_Proporation", -1.0),
+                    jsonData.optDouble("TotCases_1M_Pop", -1.0),
+                    jsonData.optInt("TotalDeaths", -1),
+                    jsonData.optInt("NewDeaths", -1),
+                    jsonData.optDouble("Deaths_1M_pop", -1.0)
+            );
+        } catch (JSONException err) {
+            logger.error(err.toString());
+        }
+
+        logger.info("Adding data to cache");
+        cachedData.addToCache(requestUrl, covidWorldData, 60);
+
+        return covidWorldData;
     }
 }

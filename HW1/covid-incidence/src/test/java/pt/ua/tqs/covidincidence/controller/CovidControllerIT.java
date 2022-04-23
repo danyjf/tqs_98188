@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import pt.ua.tqs.covidincidence.cache.CachedData;
 import pt.ua.tqs.covidincidence.model.CovidHistoryData;
+import pt.ua.tqs.covidincidence.model.CovidWorldData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,5 +50,13 @@ public class CovidControllerIT {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenGetWorldData_thenStatus200() {
+        ResponseEntity<CovidWorldData> response = testRestTemplate
+                .exchange("/covid/world", HttpMethod.GET, null, new ParameterizedTypeReference<CovidWorldData>() {});
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 }

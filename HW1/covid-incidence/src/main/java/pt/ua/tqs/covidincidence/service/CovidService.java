@@ -37,6 +37,7 @@ public class CovidService {
         String response = webClient
                 .get()
                 .uri(requestUrl)
+                .header("X-RapidAPI-Host", "covid-193.p.rapidapi.com")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -99,6 +100,7 @@ public class CovidService {
         String response = webClient
                 .get()
                 .uri(requestUrl)
+                .header("X-RapidAPI-Host", "vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();

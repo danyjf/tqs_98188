@@ -1,9 +1,11 @@
 package pt.ua.tqs.covidincidence.service;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -18,12 +20,14 @@ public class CovidService {
     @Autowired
     private CachedData cachedData;
 
+    private static final Logger logger = LogManager.getLogger();
+
     public CovidHistoryData getCovidHistoryDataByCountryAndDate(String country, String date) {
-        Logger logger = LoggerFactory.getLogger(CovidService.class);
+//        Logger logger = LoggerFactory.getLogger(CovidService.class);
 
         logger.info(String.format("Getting covid history data for %s on %s", country, date));
         String requestUrl = String.format("https://covid-193.p.rapidapi.com/history?country=%s&day=%s", country, date);
-
+        System.out.println(logger);
         CovidHistoryData covidHistoryData = cachedData.getFromCache(requestUrl);
         if(covidHistoryData != null) {
             logger.info("Found data in cache");

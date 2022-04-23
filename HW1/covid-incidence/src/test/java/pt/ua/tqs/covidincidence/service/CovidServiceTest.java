@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.reactive.function.client.WebClient;
 import pt.ua.tqs.covidincidence.cache.CachedData;
 import pt.ua.tqs.covidincidence.model.CovidHistoryData;
+import pt.ua.tqs.covidincidence.model.CovidWorldData;
 import reactor.core.publisher.Mono;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -97,5 +98,32 @@ public class CovidServiceTest {
         CovidHistoryData expected = new CovidHistoryData("Portugal", "2010-01-01");
 
         assertThat(covidHistoryData).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenGetCovidDataForWorld_thenCovidWorldDataShouldBeReturned() {
+        Mockito.when(webClientMock.get()).thenReturn(uriSpecMock);
+        Mockito.when(uriSpecMock.uri(ArgumentMatchers.<String>notNull())).thenReturn(headersSpecMock);
+        Mockito.when(headersSpecMock.retrieve()).thenReturn(responseSpecMock);
+        Mockito.when(responseSpecMock.bodyToMono(String.class)).thenReturn(Mono.just(
+                "[{\"id\":\"40f44943-8413-4a31-a4df-deee8111f85f\",\"rank\":0,\"Country\":\"World\",\"Continent\":\"All\",\"TwoLetterSymbol\":null,\"ThreeLetterSymbol\":null,\"Infection_Risk\":0,\"Case_Fatality_Rate\":1.23,\"Test_Percentage\":0,\"Recovery_Proporation\":90.65,\"TotalCases\":508746132,\"NewCases\":236391,\"TotalDeaths\":6241033,\"NewDeaths\":842,\"TotalRecovered\":\"461178426\",\"NewRecovered\":287367,\"ActiveCases\":41326673,\"TotalTests\":\"0\",\"Population\":\"0\",\"one_Caseevery_X_ppl\":0,\"one_Deathevery_X_ppl\":0,\"one_Testevery_X_ppl\":0,\"Deaths_1M_pop\":800.7,\"Serious_Critical\":42727,\"Tests_1M_Pop\":0,\"TotCases_1M_Pop\":65267}]"
+        ));
+
+        CovidWorldData covidWorldData = covidService.getCovidWorldData();
+
+        CovidWorldData expected = new CovidWorldData(
+                508733468,
+                223727,
+                41318583,
+                461173881,
+                282822,
+                90.65,
+                65266,
+                6241004,
+                813,
+                800.7
+        );
+
+        assertThat(covidWorldData).isEqualTo(expected);
     }
 }

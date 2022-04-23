@@ -160,11 +160,11 @@ class CachedDataTest {
         cachedData.addToCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09", portugalCovidData, 60);
         cachedData.addToCache("https://covid-193.p.rapidapi.com/history?country=Spain&day=2022-01-01", spainCovidData, 60);
 
-        assertThat(cachedData.getRequestCount()).isEqualTo(2);
+        assertThat(cachedData.getRequestCount()).isEqualTo(0);
 
         cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
 
-        assertThat(cachedData.getRequestCount()).isEqualTo(3);
+        assertThat(cachedData.getRequestCount()).isEqualTo(1);
     }
 
     @Test

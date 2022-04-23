@@ -22,9 +22,9 @@ public class CachedData {
         timer = new Timer("Timer");
     }
 
-    public CovidHistoryData getFromCache(String url) {
+    public Object getFromCache(String url) {
         requestCount++;
-        CovidHistoryData data = cachedData.get(url);
+        Object data = cachedData.get(url);
         if(data == null) {
             miss++;
         } else {

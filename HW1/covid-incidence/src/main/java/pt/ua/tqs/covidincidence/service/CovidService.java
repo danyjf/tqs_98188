@@ -7,15 +7,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import pt.ua.tqs.covidincidence.cache.CachedData;
 import pt.ua.tqs.covidincidence.model.CovidHistoryData;
 import pt.ua.tqs.covidincidence.model.CovidWorldData;
+import pt.ua.tqs.covidincidence.restclient.RestClient;
 
 @Service
 public class CovidService {
     @Autowired
-    private WebClient webClient;
+    private RestClient restClient;
 
     @Autowired
     private CachedData cachedData;
@@ -34,13 +34,7 @@ public class CovidService {
         logger.info("Data not in cache");
 
         logger.info("Requesting data from external API");
-        String response = webClient
-                .get()
-                .uri(requestUrl)
-                .header("X-RapidAPI-Host", "covid-193.p.rapidapi.com")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        String response = restClient.get("covid-193.p.rapidapi.com", requestUrl);
 
         try {
             JSONObject jsonResponse = new JSONObject(response);
@@ -97,13 +91,7 @@ public class CovidService {
         logger.info("Data not in cache");
 
         logger.info("Requesting data from external API");
-        String response = webClient
-                .get()
-                .uri(requestUrl)
-                .header("X-RapidAPI-Host", "vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        String response = restClient.get("vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com", requestUrl);
 
         try {
             JSONArray jsonResponse = new JSONArray(response);

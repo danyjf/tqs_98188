@@ -17,6 +17,9 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Set up geckodriver
+        uses: browser-actions/setup-geckodriver@latest
+        run: geckodriver --version
       - name: Run tests with Maven
         run: |
           cd ./HW1/covid-incidence

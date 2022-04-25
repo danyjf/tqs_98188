@@ -11,14 +11,18 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install Firefox
+        run: |
+          which geckodriver
+          geckodriver --version
+          which firefox
+          firefox --version
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - uses: browser-actions/setup-geckodriver@latest
-      - run: geckodriver --version
       - name: Run tests with Maven
         run: |
           cd ./HW1/covid-incidence

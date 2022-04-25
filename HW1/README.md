@@ -69,3 +69,21 @@ https://covid-incidence-api.herokuapp.com
 
 https://rapidapi.com/api-sports/api/covid-193/
 https://rapidapi.com/axisbits-axisbits-default/api/covid-19-statistics/
+
+## Sonarqube
+
+mvn clean verify sonar:sonar -Dsonar.projectKey=covid-incidence -Dsonar.host.url=http://localhost:9000 -Dsonar.login=1b5e9119740504c879221cef3cdd356dd7a48e99
+
+1st picture
+
+-> Remove CrossOrigin from cache endpoint
+
+2nd picture
+
+-> Fix simple code smells like public or private scope or variable naming
+
+3rd picture
+
+-> fix all code smells
+
+4th picture

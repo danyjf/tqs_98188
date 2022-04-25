@@ -11,7 +11,7 @@ import pt.ua.tqs.covidincidence.model.CovidWorldData;
 import pt.ua.tqs.covidincidence.service.CovidService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:5500", "http://127.0.0.1:5500"})
+@CrossOrigin(origins = {"http://localhost:5500", "http://127.0.0.1:5500", "https://covid-incidence.herokuapp.com"})
 public class CovidController {
     @Autowired
     private CovidService covidService;

@@ -23,7 +23,7 @@ public class CovidService {
     private static final Logger logger = LogManager.getLogger();
 
     public CovidHistoryData getCovidHistoryDataByCountryAndDate(String country, String date) {
-        logger.info(String.format("Getting covid history data for %s on %s", country, date));
+        logger.info("Getting covid history data for {} on {}", country, date);
         String requestUrl = String.format("https://covid-193.p.rapidapi.com/history?country=%s&day=%s", country, date);
 
         CovidHistoryData covidHistoryData = (CovidHistoryData) cachedData.getFromCache(requestUrl);

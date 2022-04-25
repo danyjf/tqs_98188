@@ -17,7 +17,7 @@ import pt.ua.tqs.covidincidence.model.CovidWorldData;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class CovidControllerIT {
+class CovidControllerIT {
     @LocalServerPort
     private int randomServerPort;
 
@@ -28,7 +28,7 @@ public class CovidControllerIT {
     private CachedData cachedData;
 
     @Test
-    public void whenGetValidCountryAndDate_thenStatus200() {
+    void whenGetValidCountryAndDate_thenStatus200() {
         CovidHistoryData expected = new CovidHistoryData(
                 "Portugal",
                 "2021-06-09",
@@ -53,7 +53,7 @@ public class CovidControllerIT {
     }
 
     @Test
-    public void whenGetWorldData_thenStatus200() {
+    void whenGetWorldData_thenStatus200() {
         ResponseEntity<CovidWorldData> response = testRestTemplate
                 .exchange("/covid/world", HttpMethod.GET, null, new ParameterizedTypeReference<CovidWorldData>() {});
 

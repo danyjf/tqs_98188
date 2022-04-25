@@ -9,21 +9,21 @@ import java.util.TimerTask;
 
 @Component
 public class CachedData {
-    private Map<String, Object> cachedData;
+    private Map<String, Object> cachedDataMap;
     private int requestCount;
     private int hit;
     private int miss;
     private Timer timer;
 
     public CachedData() {
-        cachedData = new HashMap<>();
+        cachedDataMap = new HashMap<>();
         requestCount = 0;
         timer = new Timer("Timer");
     }
 
     public Object getFromCache(String url) {
         requestCount++;
-        Object data = cachedData.get(url);
+        Object data = cachedDataMap.get(url);
         if(data == null) {
             miss++;
         } else {
@@ -33,7 +33,7 @@ public class CachedData {
     }
 
     public void addToCache(String url, Object covidData, long ttl) {
-        cachedData.put(url, covidData);
+        cachedDataMap.put(url, covidData);
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -44,12 +44,12 @@ public class CachedData {
     }
 
     public void deleteFromCache(String url) {
-        cachedData.remove(url);
+        cachedDataMap.remove(url);
     }
 
     public Map<String, Object> getAllCachedData() {
         requestCount++;
-        return cachedData;
+        return cachedDataMap;
     }
 
     public int getRequestCount() {

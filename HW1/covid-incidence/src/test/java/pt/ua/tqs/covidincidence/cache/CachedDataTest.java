@@ -15,12 +15,12 @@ class CachedDataTest {
     private final CountDownLatch waiter = new CountDownLatch(1);
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         cachedData = new CachedData();
     }
 
     @Test
-    public void whenAddToCache_thenDataShouldBeInCache() {
+    void whenAddToCache_thenDataShouldBeInCache() {
         CovidHistoryData portugalCovidData = new CovidHistoryData(
                 "Portugal",
                 "2021-06-09",
@@ -57,20 +57,20 @@ class CachedDataTest {
                 .isEqualTo(portugalCovidData);
         assertThat(cachedData.getFromCache("https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/world"))
                 .isEqualTo(worldData);
-        assertThat(cachedData.getAllCachedData().size())
-                .isEqualTo(2);
+        assertThat(cachedData.getAllCachedData())
+                .hasSize(2);
     }
 
     @Test
-    public void whenGetDataNotCached_thenReturnNull() {
+    void whenGetDataNotCached_thenReturnNull() {
         assertThat(cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09"))
                 .isNull();
-        assertThat(cachedData.getAllCachedData().size())
-                .isEqualTo(0);
+        assertThat(cachedData.getAllCachedData())
+                .hasSize(0);
     }
 
     @Test
-    public void whenGetPreviouslyCachedDataWithExpiredTTL_thenReturnNull() throws InterruptedException {
+    void whenGetPreviouslyCachedDataWithExpiredTTL_thenReturnNull() throws InterruptedException {
         CovidHistoryData portugalCovidData = new CovidHistoryData(
                 "Portugal",
                 "2021-06-09",
@@ -117,8 +117,8 @@ class CachedDataTest {
     }
 
     @Test
-    public void whenRequestsAreMade_thenRequestCountShouldIncrement() {
-        assertThat(cachedData.getRequestCount()).isEqualTo(0);
+    void whenRequestsAreMade_thenRequestCountShouldIncrement() {
+        assertThat(cachedData.getRequestCount()).isZero();
 
         CovidHistoryData portugalCovidData = new CovidHistoryData(
                 "Portugal",
@@ -155,7 +155,7 @@ class CachedDataTest {
         cachedData.addToCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09", portugalCovidData, 60);
         cachedData.addToCache("https://covid-193.p.rapidapi.com/history?country=Spain&day=2022-01-01", spainCovidData, 60);
 
-        assertThat(cachedData.getRequestCount()).isEqualTo(0);
+        assertThat(cachedData.getRequestCount()).isZero();
 
         cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
 
@@ -163,7 +163,7 @@ class CachedDataTest {
     }
 
     @Test
-    public void whenGetCachedData3Times_thenThereShouldBe3Hits0Misses() {
+    void whenGetCachedData3Times_thenThereShouldBe3Hits0Misses() {
         CovidHistoryData portugalCovidData = new CovidHistoryData(
                 "Portugal",
                 "2021-06-09",
@@ -186,16 +186,16 @@ class CachedDataTest {
         cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
 
         assertThat(cachedData.getHit()).isEqualTo(3);
-        assertThat(cachedData.getMiss()).isEqualTo(0);
+        assertThat(cachedData.getMiss()).isZero();
     }
 
     @Test
-    public void whenGetNonCachedData3Times_thenThereShouldBe3Misses0Hits() {
+    void whenGetNonCachedData3Times_thenThereShouldBe3Misses0Hits() {
         cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
         cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
         cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09");
 
         assertThat(cachedData.getMiss()).isEqualTo(3);
-        assertThat(cachedData.getHit()).isEqualTo(0);
+        assertThat(cachedData.getHit()).isZero();
     }
 }

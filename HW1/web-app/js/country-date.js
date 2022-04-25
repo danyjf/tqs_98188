@@ -4,7 +4,7 @@
         var date = $("#date").val();
         
         if(country != "" && date != "") {
-            var url = `http://localhost:8080/covid/${country}/${date}`;
+            var url = `https://covid-incidence-api.herokuapp.com/covid/${country}/${date}`;
             
             $.ajax({
                 url: url,

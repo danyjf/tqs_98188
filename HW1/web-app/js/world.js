@@ -1,5 +1,5 @@
 ﻿$(document).ready(function() {
-    var url = `http://localhost:8080/covid/world`;
+    var url = `https://covid-incidence-api.herokuapp.com/covid/world`;
     
     $.ajax({
         url: url,

@@ -57,13 +57,15 @@ The submission consists of a report and a code project, including:
 
 ## Frontend
 
-
+https://covid-incidence.herokuapp.com/country-date.html
 
 ## Backend
 
 Spring boot
 
 ## API
+
+https://covid-incidence-api.herokuapp.com
 
 https://rapidapi.com/api-sports/api/covid-193/
 https://rapidapi.com/axisbits-axisbits-default/api/covid-19-statistics/

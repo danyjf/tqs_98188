@@ -11,5 +11,5 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("pt/ua/tqs/covidincidence/functional")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "pt.ua.tqs.covidincidence.functional")
-public class SearchCovidStatsTest {
+public class SearchCovidStatsTestRunner {
 }

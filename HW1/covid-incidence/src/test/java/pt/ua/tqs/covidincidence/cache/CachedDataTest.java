@@ -66,7 +66,7 @@ class CachedDataTest {
         assertThat(cachedData.getFromCache("https://covid-193.p.rapidapi.com/history?country=Portugal&day=2021-06-09"))
                 .isNull();
         assertThat(cachedData.getAllCachedData())
-                .hasSize(0);
+                .isEmpty();
     }
 
     @Test

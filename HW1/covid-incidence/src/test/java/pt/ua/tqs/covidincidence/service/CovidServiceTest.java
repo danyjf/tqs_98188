@@ -50,8 +50,7 @@ class CovidServiceTest {
                 12089787
         );
 
-        assertThat(covidHistoryData).isNotNull();
-        assertThat(covidHistoryData.equals(expectedStats)).isTrue();
+        assertThat(covidHistoryData).isNotNull().isEqualTo(expectedStats);
     }
 
     @Test

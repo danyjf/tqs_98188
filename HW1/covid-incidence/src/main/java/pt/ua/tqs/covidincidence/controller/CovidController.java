@@ -17,12 +17,12 @@ public class CovidController {
     private CovidService covidService;
 
     @GetMapping("covid/{country}/{date}")
-    private CovidHistoryData getCovidStatsByCountryAndDate(@PathVariable(value = "country") String country, @PathVariable(value = "date") String date) throws JsonProcessingException {
+    public CovidHistoryData getCovidStatsByCountryAndDate(@PathVariable(value = "country") String country, @PathVariable(value = "date") String date) throws JsonProcessingException {
         return covidService.getCovidHistoryDataByCountryAndDate(country, date);
     }
 
     @GetMapping("covid/world")
-    private CovidWorldData getCovidWorldData() {
+    public CovidWorldData getCovidWorldData() {
         return covidService.getCovidWorldData();
     }
 }

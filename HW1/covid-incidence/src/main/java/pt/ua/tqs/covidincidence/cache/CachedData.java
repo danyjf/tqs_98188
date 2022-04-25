@@ -1,7 +1,6 @@
 package pt.ua.tqs.covidincidence.cache;
 
 import org.springframework.stereotype.Component;
-import pt.ua.tqs.covidincidence.model.CovidHistoryData;
 
 import java.util.HashMap;
 import java.util.Map;
